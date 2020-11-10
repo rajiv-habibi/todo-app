@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   text: {
-    fontSize: "4.5rem",
+    fontSize: "4rem",
     textAlign: "center",
     marginTop: "4.5em",
     [theme.breakpoints.down("sm")]: {
