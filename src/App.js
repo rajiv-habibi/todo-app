@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Signup from "./components/Signup";
+import Signin from "./components/Signin";
+import TodoList from "./components/TodoList";
+import Home from "./components/Home";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
+const theme = createMuiTheme({
+  spacing: 0,
+});
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      rest.login ? (
+        <Component {...rest} />
+      ) : rest.userData ? (
+        <Component {...rest} />
+      ) : (
+        <Redirect to="/signin" />
+      )
+    }
+  />
+);
 
 function App() {
+  // const login = localStorage.getItem("login");
+  const login = useSelector((state) => state.authReducer.login);
+  const userData = localStorage.getItem("userInfo");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
+          <PrivateRoute
+            path="/dashboard"
+            component={TodoList}
+            login={login}
+            userData={userData}
+          />
+        </Switch>
+      </ThemeProvider>
     </div>
   );
 }
