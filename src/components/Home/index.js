@@ -119,7 +119,7 @@ const Home = () => {
         </Grid>
         <Grid item md={12}>
           <Typography className={classes.text}>
-            <Box className={classes.title}>Be organized is easy</Box>
+            <Box className={classes.title}>Being organized is easy</Box>
             <Box className={classes.desc}>
               Todo.it is a simple,fast and reliable management app that ready to
               organize your daily tasks.
